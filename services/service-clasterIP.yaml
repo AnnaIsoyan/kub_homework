@@ -1,0 +1,17 @@
+#service will allow to connect to our application /now at app v1, which is in our deployment/
+#the selector here is the most important part. You must specify your pod label here
+#the namespaces of your different services must be the same. Be careful!
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: my-ns
+
+spec:
+  selector:
+    app: v1
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80

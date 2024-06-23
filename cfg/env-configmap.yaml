@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-configmap
+  namespace: my-ns
+
+data:
+  NAME: "Anna"
+  LASTNAME: "Isoyan"
+  AGE: "34"
+  JOB: "SRE"
+  EXPERIENCE: "4+ years"

@@ -1,0 +1,20 @@
+#will build one pod per node, no replica available here 
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-daemonset
+  namespace: my-ns #must be created imperative or declarative /kubectl create namespace my-ns/
+spec:
+  selector: #selector label will be === to template.metadata.labels which means that rs will manage and keep-alive /scaling + load-balancing/ all the pods with provided label
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80

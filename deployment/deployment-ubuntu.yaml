@@ -1,0 +1,30 @@
+#namespace block
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: my-ns
+  labels:
+    name: my-ns
+---
+#deployment block
+#manages version right deployment process. Builds ReplicaSet under the hood
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu-deployment
+  namespace: my-ns #must be created imperative or declarative /kubectl create namespace my-ns/
+spec:
+  replicas: 1
+  selector: #selector label will be === to template.metadata.labels which means that rs will manage and keep-alive /scaling + load-balancing/ all the pods with provided label
+    matchLabels:
+      app: v2
+  template:
+    metadata:
+      labels:
+        app: v2
+    spec:
+      containers:
+      - name: ubuntu-deplyment
+        image: ubuntu:latest
+        command: ["bin/bash", "-c"]
+        args: ["tail -f /dev/null"]

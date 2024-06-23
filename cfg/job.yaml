@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: my-job
+  namespace: my-ns
+spec:
+  completions: 5 #how many times to do the job
+  parallelism: 3
+  template:
+    spec:
+      containers:
+      - name: my-job
+        image: busybox
+        args: ['expr', '5', '+', '6']
+      restartPolicy: Never

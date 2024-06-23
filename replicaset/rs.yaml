@@ -1,0 +1,22 @@
+#scaling + load-balancing logic
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-rs
+spec:
+  replicas: 3
+  selector: #selector label will be === to template.metadata.labels which means that rs will manage and keep-alive /scaling + load-balancing/ all the pods with provided label
+    matchLabels:
+      app: nginx
+      env: prod
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: prod
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
