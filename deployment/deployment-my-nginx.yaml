@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-my-nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-nginx-deployment
+  template:
+    metadata:
+      labels:
+        app: my-nginx-deployment
+    spec:
+      containers:
+      - name: exam-nginx-deployment
+        image: nginx:latest #<ECR_REGISTRY>/my-app-repo:latest<take from aws ecr>
+        ports:
+        - containerPort: 3000
